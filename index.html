@@ -150,7 +150,7 @@ animation:fall 3s linear infinite;
 </div>
 
 <!-- FINAL PAGE -->
-<div class="page" id="finalPage" style="background:pink;">
+<div class="page" id="finalPage" style="background:red;">
 <div class="bigText">You just made my day... always stay this special 💖
 💞 Thank you for being my lifetime Valentine 💞</div>
 <button class="openBtn" onclick="specialMessage()">Special Message For You ✨</button>
@@ -158,7 +158,10 @@ animation:fall 3s linear infinite;
 
 <!-- SPECIAL MESSAGE -->
 <div class="page" id="messagePage">
-<div class="bigText">🌸 You just made my day... always stay this special 💖</div>
+<div class="bigText">🌸 Honestly… pata hi nahi chala kab tum ek normal si conversation se meri daily smile ban gaye. 😌 Tumse baat karna ab habit nahi, comfort lagta hai — jaise busy day ke baad ek soft sa peace mil jaye. Kehte hain na, “kisi ko itna bhi mat chaho ki khud ko bhool jao”, but tumhare saath toh khud ko aur better feel karta/ti hoon. Tumhari hasi, tumhari choti-choti baatein, aur woh random moments… sab kuch heart mein save ho jaata hai automatically. ❤️
+Valentine’s Day bas ek date nahi lagti, because feelings toh roz wali hain — jab bina reason smile aa jaye, jab phone screen par tumhara naam dikhe aur mood instantly acha ho jaye. “Pyaar perfect nahi hota, par jis ke saath ho woh perfect feel karwa de, wahi special hota hai.” Thank you for being that safe place jahan overthinking bhi cute lagti hai aur silence bhi comfortable hota hai.
+Bas itna sa wish hai — life kitni bhi fast ho, humare moments slow aur real rahein. Stay the same, stay close… and maybe stay mine a little longer. Happy Valentine’s Day, cutie. 💌✨
+</div>
 </div>
 
 <script>
@@ -192,32 +195,22 @@ show("questionPage");
 },1000);
 }
 
-/* YES FLOW */
+/* YES FLOW (DIRECT FINAL) */
 function yesFlow(){
-play("song2.mp3");
-show("confirmPage");
-}
-
-function backQuestion(){
-show("questionPage");
-}
-
-function finalYes(){
 play("song3.mp3");
 show("finalPage");
 heartRain();
 }
 
+/* FINAL SPECIAL */
 function specialMessage(){
 play("song4.mp3");
 show("messagePage");
-heartRain();
-sparkles();
+starRain();
 }
 
-/* NO FLOW */
+/* NO FLOW NEW */
 function noFlow(){
-play("song5.mp3");
 
 let messages=[
 "Are you sure? 😢",
@@ -225,29 +218,61 @@ let messages=[
 "Last chance 😭",
 "Mera dil toot jayega...",
 "Pakka na? 🥺",
-"Main ro dungi 😭"
+"Main ro dungi 😭",
+"Pakka nahi rehna...? 😔"
 ];
 
-let msg=document.getElementById("noMessage");
-msg.innerText=messages[Math.min(noClicks,messages.length-1)];
+let old=document.querySelectorAll(".fallMsg");
+old.forEach(e=>e.remove());
 
-noClicks++;
+createFallingMessage(messages[Math.min(noClicks,messages.length-1)]);
 
 let noBtn=document.getElementById("no");
 let yesBtn=document.getElementById("yes");
 
-if(noClicks<=53){
-noBtn.style.transform="scale("+(1-(noClicks*0.015))+")";
-yesBtn.style.transform="scale("+(1+(noClicks*0.01))+")";
+noClicks++;
+
+/* Button moves randomly */
+noBtn.style.position="absolute";
+noBtn.style.left=Math.random()*80+"vw";
+noBtn.style.top=(20+Math.random()*60)+"vh";
+
+/* Shrink + disable at last */
+if(noClicks>=7){
+let scale=1;
+let shrink=setInterval(()=>{
+scale-=0.05;
+noBtn.style.transform="scale("+scale+")";
+if(scale<=0.2){
+clearInterval(shrink);
+noBtn.disabled=true;
+noBtn.style.opacity="0.3";
+}
+},100);
+}
+
 yesBtn.classList.add("glow");
+play("song5.mp3");
 }
 
-if(noClicks>=53){
-noBtn.style.display="none";
+/* FALLING MESSAGE */
+function createFallingMessage(text){
+for(let i=0;i<25;i++){
+let m=document.createElement("div");
+m.className="fallMsg";
+m.innerText=text;
+m.style.position="absolute";
+m.style.left=Math.random()*100+"vw";
+m.style.top="-50px";
+m.style.color="gold";
+m.style.fontSize="18px";
+m.style.animation="fall 3s linear";
+document.body.appendChild(m);
+setTimeout(()=>m.remove(),3000);
 }
 }
 
-/* HEART RAIN */
+/* DIFFERENT RAINS */
 function heartRain(){
 setInterval(()=>{
 let h=document.createElement("div");
@@ -259,19 +284,44 @@ setTimeout(()=>h.remove(),4000);
 },200);
 }
 
-/* SPARKLES */
-function sparkles(){
+function starRain(){
 setInterval(()=>{
 let s=document.createElement("div");
 s.className="sparkle";
-s.innerText="✨";
+s.innerText="⭐";
 s.style.left=Math.random()*100+"vw";
 document.body.appendChild(s);
 setTimeout(()=>s.remove(),3000);
 },150);
 }
 
-</script>
+function smileRain(){
+setInterval(()=>{
+let sm=document.createElement("div");
+sm.className="sparkle";
+sm.innerText="😊";
+sm.style.left=Math.random()*100+"vw";
+document.body.appendChild(sm);
+setTimeout(()=>sm.remove(),3000);
+},200);
+}
 
-</body>
+function dropRain(){
+setInterval(()=>{
+let d=document.createElement("div");
+d.className="sparkle";
+d.innerText="💧";
+d.style.left=Math.random()*100+"vw";
+document.body.appendChild(d);
+setTimeout(()=>d.remove(),3000);
+},180);
+}
+
+/* Different rains on load */
+heartRain();
+starRain();
+smileRain();
+dropRain();
+
+</script>
 </html>
