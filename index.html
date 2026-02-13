@@ -13,8 +13,6 @@ color:gold;
 overflow:hidden;
 text-align:center;
 }
-
-/* Pages */
 .page{
 display:none;
 height:100vh;
@@ -25,12 +23,8 @@ flex-direction:column;
 padding:20px;
 background:rgba(0,0,0,0.6);
 }
+.active{display:flex;}
 
-.active{
-display:flex;
-}
-
-/* Headings text */
 .bigText{
 font-size:26px;
 margin-bottom:20px;
@@ -38,7 +32,6 @@ color:gold;
 text-shadow:0 0 8px goldenrod;
 }
 
-/* Buttons General */
 button{
 padding:12px 24px;
 border:none;
@@ -46,69 +39,27 @@ border-radius:30px;
 font-size:18px;
 margin:10px;
 cursor:pointer;
-transition:0.3s;
 font-weight:bold;
 color:white;
 }
 
-/* Buttons Creative Colors */
-.openBtn{
-background:royalblue;
-box-shadow:0 0 10px navy;
-}
+.openBtn{background:royalblue;}
+.yesBtn{background:deeppink;}
+.noBtn{background:crimson;}
+.confirmBtn{background:mediumvioletred;}
+.reconsiderBtn{background:darkorange;}
 
-.yesBtn{
-background:deeppink;
-box-shadow:0 0 12px hotpink;
-}
-
-.noBtn{
-background:crimson;
-box-shadow:0 0 8px darkred;
-}
-
-.confirmBtn{
-background:mediumvioletred;
-box-shadow:0 0 12px purple;
-}
-
-.reconsiderBtn{
-background:darkorange;
-box-shadow:0 0 10px chocolate;
-}
-
-/* Glow Effect */
-.glow{
-animation:glow 1s infinite alternate;
-}
-
-@keyframes glow{
-from{box-shadow:0 0 10px gold;}
-to{box-shadow:0 0 25px goldenrod;}
-}
-
-/* Countdown */
 .count{
 font-size:60px;
 color:gold;
-text-shadow:0 0 12px yellow;
 }
 
-/* Hearts */
-.heart{
+.heart,.sparkle{
 position:absolute;
-color:hotpink;
 font-size:22px;
 animation:fall 4s linear infinite;
 }
-
-/* Sparkles */
-.sparkle{
-position:absolute;
-color:gold;
-font-size:18px;
-animation:fall 3s linear infinite;
-}
+.sparkle{color:gold;}
 
 @keyframes fall{
 0%{transform:translateY(-100px);}
@@ -120,36 +71,35 @@ max-height:80vh;
 overflow-y:auto;
 font-size:20px;
 line-height:1.6;
-padding:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
 <audio id="music" loop></audio>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
-<div class="bigText">💌 Aaj ek dil se nikla hua khaas sawal hai… ready ho ?</div>
+<div class="bigText">💌 Aaj ek dil se nikla hua khaas sawal hai… ready ho?</div>
 <button class="openBtn" onclick="startLoading()">✨ Secret Open Karo</button>
 </div>
 
-<!-- PAGE 2 LOADING -->
+<!-- LOADING -->
 <div class="page" id="loadingPage">
 <div class="bigText">Important question loading...</div>
 <div class="count" id="count">10</div>
 </div>
 
-<!-- PAGE QUESTION -->
+<!-- QUESTION PAGE -->
 <div class="page" id="questionPage">
 <div class="bigText">🌹 Will you be my forever Valentine?</div>
-<button class="yesBtn" id="yes" onclick="yesFlow()">Yes 💖</button>
+<button class="yesBtn" onclick="yesFlow()">Yes 💖</button>
 <button class="noBtn" id="no" onclick="startNoFlow()">No 🙈</button>
 <div id="noArea"></div>
+</div>
 
-<!-- YES SECOND PAGE -->
+<!-- CONFIRM PAGE -->
 <div class="page" id="confirmPage">
 <div class="bigText">इतनी जल्दी? 😌 Soch lo… Ye lifetime contract hai!</div>
 <button class="confirmBtn" onclick="finalYes()">Confirm 💍</button>
@@ -158,32 +108,31 @@ padding:10px;
 
 <!-- FINAL PAGE -->
 <div class="page" id="finalPage" style="background:red;">
-<div class="bigText">You just made my day... always stay this special 💖
-💞 Thank you for being my lifetime Valentine 💞</div>
+<div class="bigText">
+You just made my day... always stay this special 💖 <br>
+💞 Thank you for being my lifetime Valentine 💞
+</div>
 <button class="openBtn" onclick="specialMessage()">Special Message For You ✨</button>
 </div>
 
-<!-- SPECIAL MESSAGE -->
+<!-- MESSAGE PAGE -->
 <div class="page" id="messagePage">
-<div class="bigText">🌸 Honestly… pata hi nahi chala kab tum ek normal si conversation se meri daily smile ban gaye. 😌 Tumse baat karna ab habit nahi, comfort lagta hai — jaise busy day ke baad ek soft sa peace mil jaye. Kehte hain na, “kisi ko itna bhi mat chaho ki khud ko bhool jao”, but tumhare saath toh khud ko aur better feel karta/ti hoon. Tumhari hasi, tumhari choti-choti baatein, aur woh random moments… sab kuch heart mein save ho jaata hai automatically. ❤️
-Valentine’s Day bas ek date nahi lagti, because feelings toh roz wali hain — jab bina reason smile aa jaye, jab phone screen par tumhara naam dikhe aur mood instantly acha ho jaye. “Pyaar perfect nahi hota, par jis ke saath ho woh perfect feel karwa de, wahi special hota hai.” Thank you for being that safe place jahan overthinking bhi cute lagti hai aur silence bhi comfortable hota hai.
-Bas itna sa wish hai — life kitni bhi fast ho, humare moments slow aur real rahein. Stay the same, stay close… and maybe stay mine a little longer. Happy Valentine’s Day, cutie. 💌✨
+<div class="bigText">
+🌸 Honestly… pata hi nahi chala kab tum meri daily smile ban gaye ❤️
+Happy Valentine’s Day 💌
 </div>
 </div>
 
 <script>
-
 let music=document.getElementById("music");
 
 let noIndex=0;
-let noFinished=false;
-
 const noMessages=[
-"Are you sure nahi? 😢",
-"Soch lo nahi banna? 💔",
-"Pakka nahi rehna chahte? 🥺",
-"Mera dil todna chahte ho? 😭",
-"Last chance hai nahi rahoge? 😔"
+"Are you sure? 😢",
+"Soch lo dobara? 💔",
+"Pakka nahi? 🥺",
+"Dil tod doge? 😭",
+"Last chance 😔"
 ];
 
 function show(id){
@@ -196,14 +145,14 @@ music.src=song;
 music.play();
 }
 
-/* START LOADING */
+/* START */
 function startLoading(){
 show("loadingPage");
 play("song1.mp3");
 
 let c=10;
 let inter=setInterval(()=>{
-count.innerText=c;
+document.getElementById("count").innerText=c;
 c--;
 if(c<0){
 clearInterval(inter);
@@ -212,12 +161,8 @@ show("questionPage");
 },1000);
 }
 
-/* YES FLOW (FIRST TIME) */
+/* YES FLOW */
 function yesFlow(){
-if(noFinished){
-show("finalPage");
-return;
-}
 play("song2.mp3");
 show("confirmPage");
 }
@@ -226,30 +171,26 @@ function backQuestion(){
 show("questionPage");
 }
 
-/* CONFIRM */
 function finalYes(){
 play("song3.mp3");
 show("finalPage");
 heartRain();
 }
 
+/* SPECIAL MESSAGE */
 function specialMessage(){
 play("song4.mp3");
 show("messagePage");
 starRain();
 }
 
-/* ========================= */
-/* NEW NO FLOW */
-/* ========================= */
-
+/* NO FLOW */
 function startNoFlow(){
 document.getElementById("no").style.display="none";
-createNoButton();
+showNextNo();
 }
 
-function createNoButton(){
-
+function showNextNo(){
 if(noIndex>=noMessages.length){
 balloonExit();
 return;
@@ -268,60 +209,44 @@ b.style.top=(10+Math.random()*70)+"vh";
 
 b.onclick=function(){
 noIndex++;
-createNoButton();
+showNextNo();
 };
 
 area.appendChild(b);
-
-moveButton(b);
 }
 
-/* Moving button */
-function moveButton(btn){
-let inter=setInterval(()=>{
-btn.style.left=Math.random()*80+"vw";
-btn.style.top=(10+Math.random()*70)+"vh";
-},1200);
-
-btn.dataset.interval=inter;
-}
-
-/* LAST BALLOON SHRINK */
+/* BALLOON EXIT */
 function balloonExit(){
-
 let area=document.getElementById("noArea");
 area.innerHTML="";
 
 let b=document.createElement("button");
 b.className="noBtn";
 b.innerText="Bye Bye 😭";
-
 b.style.position="absolute";
 b.style.left="45vw";
 b.style.top="50vh";
-
 area.appendChild(b);
 
 let scale=1;
 let up=50;
 
 let anim=setInterval(()=>{
-scale-=0.02;
+scale-=0.03;
 up-=2;
-
 b.style.transform="scale("+scale+")";
 b.style.top=up+"vh";
 
 if(scale<=0){
 clearInterval(anim);
 b.remove();
-noFinished=true;
+show("finalPage");
+heartRain();
 }
 },80);
 }
 
-/* RAINS */
-
+/* EFFECTS */
 function heartRain(){
 setInterval(()=>{
 let h=document.createElement("div");
@@ -343,6 +268,7 @@ document.body.appendChild(s);
 setTimeout(()=>s.remove(),3000);
 },150);
 }
-
 </script>
+
+</body>
 </html>
