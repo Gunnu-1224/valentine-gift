@@ -118,8 +118,18 @@ You just made my day... always stay this special 💖 <br>
 <!-- MESSAGE PAGE -->
 <div class="page" id="messagePage">
 <div class="bigText">
-🌸 Honestly… pata hi nahi chala kab tum meri daily smile ban gaye ❤️
-Happy Valentine’s Day 💌
+🌸 Honestly… pata hi nahi chala kab ek normal si baat-cheet meri daily smile ban gayi.  
+Tumse baat karna ab habit nahi, ek comfort jaisa lagta hai — jaise busy day ke baad thoda sa peace mil jaye. 😌  
+
+Kabhi kabhi bas phone par tumhara naam dikh jaaye aur mood automatically achha ho jata hai.  
+Tumhari hasi, tumhari choti choti baatein aur woh random moments… sab kuch special feel hota hai. ❤️  
+
+Valentine’s Day sirf ek date nahi hai, kyunki feelings toh roz wali hain — bina reason wali smile, bina wajah wali care aur woh silent understanding.  
+
+Bas itna sa wish hai… life kitni bhi fast chale, humare moments always real aur special rahein.  
+Stay the same, stay close… and maybe stay mine a little longer. 💌✨  
+
+Happy Valentine’s Day ❤️
 </div>
 </div>
 
@@ -141,6 +151,8 @@ document.getElementById(id).classList.add("active");
 }
 
 function play(song){
+music.pause();
+music.currentTime=0;
 music.src=song;
 music.play();
 }
@@ -148,7 +160,6 @@ music.play();
 /* START */
 function startLoading(){
 show("loadingPage");
-play("song1.mp3");
 
 let c=10;
 let inter=setInterval(()=>{
@@ -157,13 +168,14 @@ c--;
 if(c<0){
 clearInterval(inter);
 show("questionPage");
+play("song2.mp3"); // Countdown ke baad
 }
 },1000);
 }
 
 /* YES FLOW */
 function yesFlow(){
-play("song2.mp3");
+play("song3.mp3"); // Yes click
 show("confirmPage");
 }
 
@@ -171,21 +183,23 @@ function backQuestion(){
 show("questionPage");
 }
 
+/* FINAL CONFIRM */
 function finalYes(){
-play("song3.mp3");
 show("finalPage");
+play("song6.mp3"); // Final page music
 heartRain();
 }
 
 /* SPECIAL MESSAGE */
 function specialMessage(){
-play("song4.mp3");
 show("messagePage");
+play("song4.mp3"); // Secret message music
 starRain();
 }
 
 /* NO FLOW */
 function startNoFlow(){
+play("song5.mp3"); // No click music
 document.getElementById("no").style.display="none";
 showNextNo();
 }
@@ -240,8 +254,8 @@ b.style.top=up+"vh";
 if(scale<=0){
 clearInterval(anim);
 b.remove();
-show("finalPage");
-heartRain();
+document.getElementById("no").style.display="inline-block";
+noIndex=0; // reset
 }
 },80);
 }
