@@ -94,8 +94,8 @@ line-height:1.6;
 <!-- QUESTION PAGE -->
 <div class="page" id="questionPage">
 <div class="bigText">🌹 Will you be my forever Valentine?</div>
-<button class="yesBtn" onclick="yesFlow()">Yes 💖</button>
-<button class="noBtn" id="no" onclick="startNoFlow()">No 🙈</button>
+<button class="yesBtn" id="yesBtn" onclick="yesFlow()">Yes 💖</button>
+<button class="noBtn" id="noBtn" onclick="startNoFlow()">No 🙈</button>
 <div id="noArea"></div>
 </div>
 
@@ -118,18 +118,9 @@ You just made my day... always stay this special 💖 <br>
 <!-- MESSAGE PAGE -->
 <div class="page" id="messagePage">
 <div class="bigText">
-🌸 Honestly… pata hi nahi chala kab ek normal si baat-cheet meri daily smile ban gayi.  
-Tumse baat karna ab habit nahi, ek comfort jaisa lagta hai — jaise busy day ke baad thoda sa peace mil jaye. 😌  
-
-Kabhi kabhi bas phone par tumhara naam dikh jaaye aur mood automatically achha ho jata hai.  
-Tumhari hasi, tumhari choti choti baatein aur woh random moments… sab kuch special feel hota hai. ❤️  
-
-Valentine’s Day sirf ek date nahi hai, kyunki feelings toh roz wali hain — bina reason wali smile, bina wajah wali care aur woh silent understanding.  
-
-Bas itna sa wish hai… life kitni bhi fast chale, humare moments always real aur special rahein.  
-Stay the same, stay close… and maybe stay mine a little longer. 💌✨  
-
-Happy Valentine’s Day ❤️
+🌸 Honestly… pata hi nahi chala kab ek normal si baat meri daily smile ban gayi ❤️  
+Tumse baat karna ab habit nahi, ek comfort hai.  
+Happy Valentine’s Day 💌✨
 </div>
 </div>
 
@@ -159,23 +150,25 @@ music.play();
 
 /* START */
 function startLoading(){
+play("song1.mp3"); // Secret open click
 show("loadingPage");
 
 let c=10;
+play("song2.mp3"); // Countdown music
+
 let inter=setInterval(()=>{
 document.getElementById("count").innerText=c;
 c--;
 if(c<0){
 clearInterval(inter);
 show("questionPage");
-play("song2.mp3"); // Countdown ke baad
 }
 },1000);
 }
 
 /* YES FLOW */
 function yesFlow(){
-play("song3.mp3"); // Yes click
+play("song3.mp3");
 show("confirmPage");
 }
 
@@ -186,21 +179,21 @@ show("questionPage");
 /* FINAL CONFIRM */
 function finalYes(){
 show("finalPage");
-play("song6.mp3"); // Final page music
+play("song6.mp3");
 heartRain();
 }
 
 /* SPECIAL MESSAGE */
 function specialMessage(){
 show("messagePage");
-play("song4.mp3"); // Secret message music
+play("song4.mp3");
 starRain();
 }
 
 /* NO FLOW */
 function startNoFlow(){
-play("song5.mp3"); // No click music
-document.getElementById("no").style.display="none";
+play("song5.mp3");
+document.getElementById("noBtn").style.display="none";
 showNextNo();
 }
 
@@ -254,8 +247,7 @@ b.style.top=up+"vh";
 if(scale<=0){
 clearInterval(anim);
 b.remove();
-document.getElementById("no").style.display="inline-block";
-noIndex=0; // reset
+area.innerHTML="";
 }
 },80);
 }
